@@ -5,6 +5,10 @@ import com.geekbrains.tests.model.SearchResult
 import com.geekbrains.tests.presenter.search.SearchPresenter
 import com.geekbrains.tests.repository.GitHubRepository
 import com.geekbrains.tests.view.search.ViewSearchContract
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -28,9 +32,14 @@ class SearchPresenterTest {
     fun setUp() {
         //Обязательно для аннотаций "@Mock"
         //Раньше было @RunWith(MockitoJUnitRunner.class) в аннотации к самому классу (SearchPresenterTest)
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         //Создаем Презентер, используя моки Репозитория и Вью, проинициализированные строкой выше
         presenter = SearchPresenter(repository)
+    }
+
+    @After
+    fun close() {
+        presenter.onDetach()
     }
 
     @Test //Проверим вызов метода searchGitHub() у нашего Репозитория
@@ -65,10 +74,10 @@ class SearchPresenterTest {
     @Test //Теперь проверим, как у нас обрабатываются ошибки
     fun handleGitHubResponse_Failure() {
         //Создаем мок ответа сервера с типом Response<SearchResponse?>?
-        val response = mock(Response::class.java) as Response<SearchResponse?>
+        val response = mock<Response<SearchResponse?>>()
         //Описываем правило, что при вызове метода isSuccessful должен возвращаться false
         //В таком случае должен вызываться метод viewContract.displayError(...)
-        `when`(response.isSuccessful).thenReturn(false)
+        whenever(response.isSuccessful).thenReturn(false)
 
         //Вызывваем у Презентера метод handleGitHubResponse()
         presenter.handleGitHubResponse(response)
@@ -113,11 +122,11 @@ class SearchPresenterTest {
 
     @Test //Проверим как обрабатывается случай, если ответ от сервера пришел пустой
     fun handleGitHubResponse_EmptyResponse() {
-        val response = mock(Response::class.java) as Response<SearchResponse?>
+        val response = mock<Response<SearchResponse?>>()
         //Устанавливаем правило, что ответ успешный
-        `when`(response.isSuccessful).thenReturn(true)
+        whenever(response.isSuccessful).thenReturn(true)
         //При этом body ответа == null. В таком случае должен вызываться метод viewContract.displayError(...)
-        `when`(response.body()).thenReturn(null)
+        whenever(response.body()).thenReturn(null)
 
         //Вызываем handleGitHubResponse()
         presenter.handleGitHubResponse(response)

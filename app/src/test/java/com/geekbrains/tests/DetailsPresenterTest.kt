@@ -1,21 +1,15 @@
 package com.geekbrains.tests
 
-import android.os.Build
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.geekbrains.tests.presenter.details.DetailsPresenter
 import com.geekbrains.tests.view.details.ViewDetailsContract
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.annotation.Config
 
-@RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
 class DetailsPresenterTest {
     @Mock
     private lateinit var presenter: DetailsPresenter
