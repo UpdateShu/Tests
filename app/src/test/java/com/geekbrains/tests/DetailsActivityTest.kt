@@ -6,12 +6,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
+
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.geekbrains.tests.view.details.DetailsActivity
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
+
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
