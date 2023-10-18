@@ -44,6 +44,12 @@ class BehaviorTest {
     }
 
     @Test
+    fun test_SearchButton_IsNotNull() {
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+        Assert.assertNotNull(searchButton)
+    }
+
+    @Test
     fun test_SearchIsPositive() {
 
         val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
@@ -81,7 +87,7 @@ class BehaviorTest {
     }
 
     @Test
-    fun test_TotalCount_OnDetailsScreen() {
+    fun test_TotalCount_NotEmpty_OnDetailsScreen() {
 
         val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
         editText.text = "UiAutomator"
@@ -95,5 +101,78 @@ class BehaviorTest {
 
         val changedText = uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
         Assert.assertEquals(changedText.text, "Number of results: 668")
+    }
+
+    @Test
+    fun test_TotalCount_Empty_OnDetailsScreen() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = ""
+
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+        searchButton.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val toDetails: UiObject2 = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+
+        val changedText = uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedText.text, "")
+    }
+
+    @Test
+    fun test_IncrementButton_IsNotNull() {
+        val incrementButton = uiDevice.findObject(By.res(packageName, "incrementButton"))
+        Assert.assertNotNull(incrementButton)
+    }
+
+    @Test
+    fun test_DecrementButton_IsNotNull() {
+        val decrementButton = uiDevice.findObject(By.res(packageName, "decrementButton"))
+        Assert.assertNotNull(decrementButton)
+    }
+
+    @Test
+    fun test_Increment_OnDetailsScreen() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "UiAutomator"
+
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+        searchButton.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val toDetails: UiObject2 = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val incrementButton = uiDevice.findObject(By.res(packageName, "incrementButton"))
+        incrementButton.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val changedText = uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedText.text, "Number of results: 669")
+    }
+
+    @Test
+    fun test_Decrement_OnDetailsScreen() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+        editText.text = "UiAutomator"
+
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+        searchButton.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val toDetails: UiObject2 = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val decrementButton = uiDevice.findObject(By.res(packageName, "decrementButton"))
+        decrementButton.click()
+        uiDevice.wait(Until.gone(By.res(packageName)), TIMEOUT)
+
+        val changedText = uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
+        Assert.assertEquals(changedText.text, "Number of results: 669")
     }
 }
