@@ -8,7 +8,7 @@ import com.geekbrains.tests.view.search.ViewSearchContract
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
-import org.junit.After
+
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -32,14 +32,9 @@ class SearchPresenterTest {
     fun setUp() {
         //Обязательно для аннотаций "@Mock"
         //Раньше было @RunWith(MockitoJUnitRunner.class) в аннотации к самому классу (SearchPresenterTest)
-        MockitoAnnotations.openMocks(this)
+        MockitoAnnotations.initMocks(this)
         //Создаем Презентер, используя моки Репозитория и Вью, проинициализированные строкой выше
         presenter = SearchPresenter(repository)
-    }
-
-    @After
-    fun close() {
-        presenter.onDetach()
     }
 
     @Test //Проверим вызов метода searchGitHub() у нашего Репозитория
