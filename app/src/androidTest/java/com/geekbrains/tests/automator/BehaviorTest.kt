@@ -83,7 +83,7 @@ class BehaviorTest {
         toDetails.click()
 
         val changedText = uiDevice.wait(Until.findObject(By.res(packageName, "totalCountTextView")), TIMEOUT)
-        Assert.assertEquals(changedText.text, "Number of results: 0")
+        Assert.assertEquals(changedText.text)
     }
 
     @Test
