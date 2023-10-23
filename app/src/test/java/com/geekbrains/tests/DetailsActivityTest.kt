@@ -58,7 +58,7 @@ class DetailsActivityTest {
     fun activityTextView_HasText() {
         scenario.onActivity {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
-            assertEquals("Number of results: 0", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_ZERO, totalCountTextView.text)
         }
     }
 
